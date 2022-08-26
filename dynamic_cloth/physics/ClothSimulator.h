@@ -39,7 +39,7 @@ public:
 
     void apply_force(std::vector<float>& force, Particle& p);
 
-    void apply_damping(Particle &p);
+    void apply_damping(Particle &p, float delta_t);
 };
 
 

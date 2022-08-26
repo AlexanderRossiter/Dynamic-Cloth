@@ -4,7 +4,7 @@
 
 #include "ClothSimulator.h"
 
-ClothSimulator::ClothSimulator(Cloth &cloth) : cloth(cloth) {}
+ClothSimulator::ClothSimulator(Cloth& cloth) : cloth(cloth) {}
 
 ClothSimulator::~ClothSimulator() {}
 
@@ -19,11 +19,15 @@ void ClothSimulator::apply_force(std::vector<float>& force, Particle& p) {
     p.zacc += force[2] / p.mass;
 }
 
-void ClothSimulator::apply_damping(Particle& p) {
-    std::vector<float> dir =  {p.x_old-p.x, p.y_old-p.y, p.z_old-p.z};
+void ClothSimulator::apply_damping(Particle& p, float delta_t) {
+
+    float vsq = ((p.x_old - p.x) / delta_t) * (p.x_old - p.x) / delta_t +
+        ((p.y_old - p.y) / delta_t) * ((p.y_old - p.y) / delta_t) +
+        ((p.z_old - p.z) / delta_t) * ((p.z_old - p.z) / delta_t);
+    std::vector<float> dir = { (p.x_old - p.x), (p.y_old - p.y), (p.z_old - p.z) };
     util::vector_normalise(dir);
     for (float& x : dir)
-        x *= cloth.damping;
+        x *= cloth.damping * vsq;
     apply_force(dir, p);
 }
 
@@ -66,7 +70,7 @@ void ClothSimulator::verlet_step(float delta_t) {
 
             apply_stiffness_force(point);
             apply_gravity(point);
-            apply_damping(point);
+            apply_damping(point, delta_t);
 
             float x_tmp = point.x;
             float y_tmp = point.y;

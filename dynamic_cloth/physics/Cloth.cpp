@@ -46,6 +46,16 @@ void Cloth::draw(sf::RenderWindow& window) {
     }
 }
 
+void Cloth::remove_particle(int idx) {
+    Particle& p = points.at(idx);
+    for (int i = 0; i < p.neighbours.size(); i++) {
+        Particle& n = points.at(p.neighbours.at(i));
+        n.neighbours.erase(std::remove(n.neighbours.begin(), n.neighbours.end(), idx), n.neighbours.end());
+        std::cout << util::vector_to_string(n.neighbours) << std::endl;
+    }
+    p.neighbours.clear();
+}
+
 
 #endif // !CLOTH_H
 

@@ -32,6 +32,7 @@ public:
     void set_stiffness(float stiffness);
     void set_damping(float damping);
     void draw(sf::RenderWindow& window);
+    void remove_particle(int idx);
 
 
 };

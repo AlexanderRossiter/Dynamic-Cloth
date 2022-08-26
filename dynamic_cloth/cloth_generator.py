@@ -1,6 +1,6 @@
 import numpy as np
 
-ni = 30
+ni = 50
 nj = 15
 
 x1 = 20

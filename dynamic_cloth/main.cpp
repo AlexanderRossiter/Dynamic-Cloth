@@ -15,16 +15,15 @@ int main()
     // Load the cloth.
     ClothLoader cl;
     Cloth cloth = cl.load_cloth_from_file("./");
-    cloth.set_stiffness(200.f);
-    cloth.set_damping(5.0f);
+    cloth.set_stiffness(100.f);
+    cloth.set_damping(0.1f);
     
     ClothSimulator cs(cloth);
-    cs.set_fixed_nodes(std::vector<int> {0, 29});
+    cs.set_fixed_nodes(std::vector<int> {0, 19});
 
     cs.calculate_undeformed_distances();
 
     sf::Clock clock;
-
 
     float simulator_deltaT = 0.0005;
     float left_over_time = 0;
@@ -38,12 +37,13 @@ int main()
         int n = (elapsed_time.asSeconds()+left_over_time) / simulator_deltaT;
         left_over_time = elapsed_time.asSeconds() - n * simulator_deltaT;
 
+        float fps = 1.0f / elapsed_time.asSeconds();
+        std::cout << n*simulator_deltaT << std::endl;
+
 
         for (int nstep = 0; nstep < n; nstep++) {
             cs.verlet_step(simulator_deltaT);
         }
-
-        //std::cout << left_over_time << std::endl;
 
         sf::Event event;
         while (app.pollEvent(event))
@@ -58,6 +58,23 @@ int main()
                 sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
                 app.setView(sf::View(visibleArea));
             }
+
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                sf::Vector2i localPosition = sf::Mouse::getPosition(app);
+
+                for (int ii = 0; ii < cs.cloth.points.size(); ii++) {
+                    Particle& p = cs.cloth.points.at(ii);
+                    if (std::abs(localPosition.x - p.x) < 5 && std::abs(localPosition.y - p.y) < 5) {
+                        cs.cloth.remove_particle(ii);
+                        std::cout << localPosition.x << ", " << localPosition.y << std::endl;
+
+                    }
+                }
+
+
+            }
+
+            
         }
 
         app.clear();
