@@ -13,6 +13,8 @@
 
 namespace util {
     std::vector <std::string> str_split(const std::string &inputString, const std::string &delimiter);
+    void HSV_to_RGB(float h, float s, float v, std::vector<float>& rgb);
+
 
 
     template<typename T>
@@ -54,6 +56,9 @@ namespace util {
         val_sq = std::sqrt(val_sq);
         return val_sq;
     }
+
+
+    
 
 
 }

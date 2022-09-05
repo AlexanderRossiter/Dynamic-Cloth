@@ -10,12 +10,13 @@
 #include "../util.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <algorithm>
 
 
 
 class Cloth {
 private:
-
+    std::vector<float> rgb = {0.f, 0.f, 0.f};
 
 public:
     Cloth();
@@ -29,7 +30,7 @@ public:
     void print_cloth_connectivity();
     float stiffness;
     float damping;
-    float max_force;;
+    float max_force;
 
     void set_stiffness(float stiffness);
     void set_damping(float damping);

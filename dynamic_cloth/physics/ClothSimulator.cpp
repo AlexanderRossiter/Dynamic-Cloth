@@ -28,17 +28,6 @@ void ClothSimulator::apply_force_to_all(std::vector<float>& force) {
 
 }
 
-void ClothSimulator::apply_damping(Particle& p, float delta_t) {
-
-    float vsq = ((p.x_old - p.x) / delta_t) * (p.x_old - p.x) / delta_t +
-        ((p.y_old - p.y) / delta_t) * ((p.y_old - p.y) / delta_t) +
-        ((p.z_old - p.z) / delta_t) * ((p.z_old - p.z) / delta_t);
-    std::vector<float> dir = { (p.x_old - p.x), (p.y_old - p.y), (p.z_old - p.z) };
-    util::vector_normalise(dir);
-    for (float& x : dir)
-        x *= cloth.damping * vsq;
-    apply_force(dir, p);
-}
 
 void ClothSimulator::apply_oscilator_damping(Particle& p) {
     damping_force[0] = -p.xvel * cloth.damping;
@@ -68,6 +57,8 @@ void ClothSimulator::apply_stiffness_force(Particle& p1) {
         float zdir = dz / distance;
 
         float spring_force = (distance - undeformed_distance) * cloth.stiffness;
+        p1.forces.at(ii) = spring_force;
+        //std::cout << p1.forces.at(ii) << std::endl;
 
         //spring_force = spring_force > cloth.max_force ? cloth.max_force : spring_force;
 
@@ -84,61 +75,35 @@ void ClothSimulator::set_fixed_nodes(const std::vector<int>& fixed_nodes) {
     }
 }
 
-void ClothSimulator::verlet_step(float delta_t) {
-    for (Particle& point : cloth.points) {
-        if (!point.is_fixed) {
-            point.xacc = 0;
-            point.yacc = 0;
-            point.zacc = 0;
 
-            apply_stiffness_force(point);
-            apply_gravity(point);
-            apply_damping(point, delta_t);
-
-            float x_tmp = point.x;
-            float y_tmp = point.y;
-            float z_tmp = point.z;
-
-            point.x = 2.0f*point.x - point.x_old + point.xacc*delta_t*delta_t;
-            point.y = 2.0f*point.y - point.y_old + point.yacc*delta_t*delta_t;
-            point.z = 2.0f*point.z - point.z_old + point.zacc*delta_t*delta_t;
-
-            point.x_old = x_tmp;
-            point.y_old = y_tmp;
-            point.z_old = z_tmp;
-
-        }
-    }
-
-}
 
 void ClothSimulator::velocity_verlet_step(float delta_t) {
     for (int p_idx : cloth.point_idicies) {
         Particle& point = cloth.points.at(p_idx);
         if (!point.is_fixed) {
-
             point.x = point.x + point.xvel * delta_t + 0.5f * point.xacc * delta_t * delta_t;
             point.y = point.y + point.yvel * delta_t + 0.5f * point.yacc * delta_t * delta_t;
             point.z = point.z + point.zvel * delta_t + 0.5f * point.zacc * delta_t * delta_t;
-
-            float x_tmp = point.xacc;
-            float y_tmp = point.yacc;
-            float z_tmp = point.zacc;
-
-            point.xacc = 0;
-            point.yacc = 0;
-            point.zacc = 0;
-
-            apply_stiffness_force(point);
-            apply_gravity(point);
-            apply_oscilator_damping(point);
-
-            point.xvel = point.xvel + 0.5f * (point.xacc + x_tmp) * delta_t;
-            point.yvel = point.yvel + 0.5f * (point.yacc + y_tmp) * delta_t;
-            point.zvel = point.zvel + 0.5f * (point.zacc + z_tmp) * delta_t;
-
-
         }
+
+        float x_tmp = point.xacc;
+        float y_tmp = point.yacc;
+        float z_tmp = point.zacc;
+
+        point.xacc = 0;
+        point.yacc = 0;
+        point.zacc = 0;
+
+        apply_stiffness_force(point);
+        apply_gravity(point);
+        apply_oscilator_damping(point);
+
+        point.xvel = point.xvel + 0.5f * (point.xacc + x_tmp) * delta_t;
+        point.yvel = point.yvel + 0.5f * (point.yacc + y_tmp) * delta_t;
+        point.zvel = point.zvel + 0.5f * (point.zacc + z_tmp) * delta_t;
+
+
+        
     }
 
 }
@@ -206,6 +171,8 @@ void ClothSimulator::calculate_undeformed_distances() {
             point.undeformed_distance_to_neighbours_vectors.push_back(distance_vector);
             point.undeformed_distance_to_neighbours.push_back(util::vector_magnitude(distance_vector));
             point.neighbour_drawn.insert({neighbour_idx, false});
+            point.forces.push_back(0.0f);
+            point.previous_colours.push_back(std::vector<int> {0, 255, 0});
         }
     }
 }

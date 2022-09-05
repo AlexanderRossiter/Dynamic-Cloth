@@ -41,6 +41,8 @@ public:
     std::vector<std::vector<float>> undeformed_distance_to_neighbours_vectors;
     std::vector<float> undeformed_distance_to_neighbours;
     std::unordered_map<int,bool> neighbour_drawn;
+    std::vector<float> forces;
+    std::vector<std::vector<int>> previous_colours;
 
 };
 

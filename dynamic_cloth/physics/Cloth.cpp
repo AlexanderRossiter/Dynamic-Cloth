@@ -24,7 +24,7 @@ void Cloth::print_cloth_connectivity() {
 
 void Cloth::set_stiffness(float stiffness) {
     Cloth::stiffness = stiffness;
-    Cloth::max_force = stiffness * 100;
+    Cloth::max_force = stiffness * 5;
 }
 
 void Cloth::set_damping(float damping) {
@@ -38,17 +38,27 @@ void Cloth::draw(sf::RenderWindow& window) {
             Particle& neighbour = points.at(neighbour_idx);
 
             if (!p.neighbour_drawn[ii]) {
-                //neighbour.neighbour_drawn[p.idx] = true;
-                /*std::vector<int>::iterator it = std::find(neighbour.neighbours.begin(), neighbour.neighbours.end(), p.idx);
-                int idx = std::distance(neighbour.neighbours.begin(), it);
-                neighbour.neighbour_drawn[idx] = true;*/
+                neighbour.neighbour_drawn[p.idx] = true;
+                
+                float x = std::min(std::abs(p.forces.at(ii)) / max_force,1.0f);
+                float h = (1.f - x) * 135.f;
+                util::HSV_to_RGB(h, 0.7f, 1.0f, rgb);
+                
+                int r = rgb[0] * 255;
+                int g = rgb[1] * 255;
+                int b = rgb[2] * 255;
+
+                //std::cout << h << std::endl;
+
+                //float r = std::min(2.0f * x, 1.0f) * 200.f;
+                //float g = std::min(2.0f * (1-x), 1.0f) * 200.f;
+                //int b = 0;
 
 
                 sf::Vertex line[] = {
-                    sf::Vertex(sf::Vector2f(p.x, p.y)),
-                    sf::Vertex(sf::Vector2f(neighbour.x, neighbour.y))
+                    sf::Vertex(sf::Vector2f(p.x, p.y), sf::Color(r,g,b)),
+                    sf::Vertex(sf::Vector2f(neighbour.x, neighbour.y), sf::Color(r,g,b))
                 };
-
                 window.draw(line, 2, sf::Lines);
             }
         }
