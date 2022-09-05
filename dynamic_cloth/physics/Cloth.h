@@ -22,12 +22,14 @@ public:
     virtual ~Cloth();
 
     std::vector<Particle> points;
+    std::vector<int> point_idicies;
     int np;
  
     void print_cloth_coords();
     void print_cloth_connectivity();
     float stiffness;
     float damping;
+    float max_force;;
 
     void set_stiffness(float stiffness);
     void set_damping(float damping);

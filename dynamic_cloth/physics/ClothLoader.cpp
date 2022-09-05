@@ -46,7 +46,13 @@ void ClothLoader::load_cloth_coordinates(Cloth &c, std::string& filepath) {
         m = std::stof(tmp[3]);
 
         c.points.push_back(Particle(x, y, z, m));
+        c.points.back().idx = i;
     }
+    
+    // Store the indicies and randomise them, allows us to iterate through array in random order.
+    for (int i = 0; i < c.points.size(); i++)
+        c.point_idicies.push_back(i);
+    std::random_shuffle(c.point_idicies.begin(), c.point_idicies.end());
 }
 
 void ClothLoader::load_cloth_connectivity(Cloth &c, std::string &filepath) {

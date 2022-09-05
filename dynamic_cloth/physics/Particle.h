@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <memory>
+#include <unordered_map>
 class Particle
 {
 public:
@@ -33,10 +34,13 @@ public:
     float mass;
     bool is_fixed = false;
 
+    int idx;
+
 
     std::vector<int> neighbours;
     std::vector<std::vector<float>> undeformed_distance_to_neighbours_vectors;
     std::vector<float> undeformed_distance_to_neighbours;
+    std::unordered_map<int,bool> neighbour_drawn;
 
 };
 

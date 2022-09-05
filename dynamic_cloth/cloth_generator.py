@@ -1,7 +1,7 @@
 import numpy as np
 
 ni = 50
-nj = 15
+nj = 50
 
 x1 = 20
 x2 = 780
@@ -19,8 +19,8 @@ xv,yv = np.meshgrid(np.linspace(x1,x2,ni),np.linspace(y1,y2,nj))
 
 connectivity = []
 test_points = [(-1,-1), (0,-1), (1,-1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
-
-#test_points = [(0,-1), (-1, 0), (1, 0), (0, 1)]
+#test_points = [(0,-1), (-1, 0), (1, 0), (0, 1), (1,1)]
+test_points = [(0,-1), (-1, 0), (1, 0), (0, 1)]
 
 for j in range(nj):
     for i in range(ni):

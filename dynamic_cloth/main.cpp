@@ -3,48 +3,64 @@
 #include "physics/ClothLoader.h"
 #include "physics/Cloth.h"
 #include "physics/ClothSimulator.h"
+#include <cmath>
 
 const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_HEIGHT = 800;
 
 int main()
 {
-    sf::RenderWindow app(sf::VideoMode(SCR_WIDTH, SCR_HEIGHT), "SFML works!");
-    app.setFramerateLimit(60);
+    sf::RenderWindow app(sf::VideoMode(SCR_WIDTH, SCR_HEIGHT), "Cloth Simulation");
+    app.setFramerateLimit(30);
 
     // Load the cloth.
     ClothLoader cl;
     Cloth cloth = cl.load_cloth_from_file("./");
-    cloth.set_stiffness(100.f);
-    cloth.set_damping(0.1f);
+    cloth.set_stiffness(1000.f);
+    cloth.set_damping(1.f);
     
     ClothSimulator cs(cloth);
-    cs.set_fixed_nodes(std::vector<int> {0, 19});
+
+    std::vector<int> nodes;
+    for (int i = 0; i < 50; i += 10) {
+        nodes.push_back(i);
+    }
+    nodes.push_back(49);
+
+    cs.set_fixed_nodes(nodes);
 
     cs.calculate_undeformed_distances();
+
 
     sf::Clock clock;
 
     float simulator_deltaT = 0.0005;
     float left_over_time = 0;
+    float total_elapsed_time = 0;
     int loop_no = 0;
+
+    std::vector<float> wind = { 0.f, 0.f, 0.f };
     while (app.isOpen())
     {
-
+        // Time keeping
         sf::Time elapsed_time = clock.getElapsedTime();
         clock.restart();
-
-        int n = (elapsed_time.asSeconds()+left_over_time) / simulator_deltaT;
-        left_over_time = elapsed_time.asSeconds() - n * simulator_deltaT;
-
-        float fps = 1.0f / elapsed_time.asSeconds();
-        std::cout << n*simulator_deltaT << std::endl;
-
-
+        float elapsed_time_sec = elapsed_time.asSeconds();
+        int n = (elapsed_time_sec +left_over_time) / simulator_deltaT;
+        left_over_time = elapsed_time_sec - n * simulator_deltaT;
+        float fps = 1.0f / elapsed_time_sec;
+        //std::cout << fps << std::endl;
+        
+        // The Physics steps
         for (int nstep = 0; nstep < n; nstep++) {
-            cs.verlet_step(simulator_deltaT);
+            cs.velocity_verlet_step(simulator_deltaT);
+            total_elapsed_time += simulator_deltaT;
+           
+            wind[0] = 50.0f * std::sin(total_elapsed_time / 0.5f);
+            cs.apply_force_to_all(wind);
         }
 
+        // Events
         sf::Event event;
         while (app.pollEvent(event))
         {
@@ -66,8 +82,6 @@ int main()
                     Particle& p = cs.cloth.points.at(ii);
                     if (std::abs(localPosition.x - p.x) < 5 && std::abs(localPosition.y - p.y) < 5) {
                         cs.cloth.remove_particle(ii);
-                        std::cout << localPosition.x << ", " << localPosition.y << std::endl;
-
                     }
                 }
 
@@ -81,7 +95,6 @@ int main()
         cs.cloth.draw(app);
         app.display();
         loop_no++;
-        //std::cout << "Loop\n";
     }
 
     return 0;
