@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="physics\Cloth.cpp" />
     <ClCompile Include="physics\ClothLoader.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="physics\Cloth.h" />
     <ClInclude Include="physics\ClothLoader.h" />
     <ClInclude Include="physics\ClothSimulator.h" />
