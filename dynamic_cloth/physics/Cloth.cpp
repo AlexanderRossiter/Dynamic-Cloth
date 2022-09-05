@@ -48,6 +48,13 @@ void Cloth::draw(sf::RenderWindow& window) {
                 int g = rgb[1] * 255;
                 int b = rgb[2] * 255;
 
+                //std::cout << h << std::endl;
+
+                //float r = std::min(2.0f * x, 1.0f) * 200.f;
+                //float g = std::min(2.0f * (1-x), 1.0f) * 200.f;
+                //int b = 0;
+
+
                 sf::Vertex line[] = {
                     sf::Vertex(sf::Vector2f(p.x, p.y), sf::Color(r,g,b)),
                     sf::Vertex(sf::Vector2f(neighbour.x, neighbour.y), sf::Color(r,g,b))
