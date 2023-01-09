@@ -7,8 +7,8 @@
 std::vector<std::string> util::str_split(const std::string& inputString, const std::string& delimiter) {
     // The vector that will contain the split string.
     std::vector<std::string> splitString;
-    int startIndex = 0;
-    int endIndex = 0;
+    size_t startIndex = 0;
+    size_t endIndex = 0;
 
     while ( (endIndex = inputString.find(delimiter, startIndex)) <
             inputString.size() ) {
@@ -30,7 +30,7 @@ void util::HSV_to_RGB(float h, float s, float v, std::vector<float>& rgb) {
     //float c = (1.f - std::abs(2.f * b - 1.f)) * s;
     float c = v * s;
     float h_dash = h / 60.f;
-    float x = c * (1 - std::abs(std::fmod(h_dash, 2) - 1));
+    float x = c * (1.f - std::abs(std::fmod(h_dash, 2.f) - 1.f));
 
     if ((0 <= h_dash) && (h_dash < 1)) {
         rgb[0] = c;

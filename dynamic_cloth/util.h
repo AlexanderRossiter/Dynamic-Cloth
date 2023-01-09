@@ -22,7 +22,7 @@ namespace util {
         std::ostringstream ss;
         ss << "[";
 
-        for (int i = 0; i < vector.size(); i++) {
+        for (size_t i = 0; i < vector.size(); i++) {
             ss << vector.at(i);
             if (i != vector.size()-1) {
                 ss << ", ";

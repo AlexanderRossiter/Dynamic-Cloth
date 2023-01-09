@@ -36,7 +36,7 @@ void ClothSimulator::apply_oscilator_damping(Particle& p) {
 
 void ClothSimulator::apply_stiffness_force(Particle& p1) {
 
-    for (int ii = 0; ii < p1.neighbours.size(); ii++) {
+    for (size_t ii = 0; ii < p1.neighbours.size(); ii++) {
         int neighbour_idx = p1.neighbours.at(ii);
         Particle& p2 = cloth.points.at(neighbour_idx);
 

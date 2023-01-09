@@ -33,7 +33,7 @@ void Cloth::set_damping(float damping) {
 
 void Cloth::draw(sf::RenderWindow& window) {
     for (Particle& p : points) {
-        for (int ii = 0; ii < p.neighbours.size(); ii++) {
+        for (size_t ii = 0; ii < p.neighbours.size(); ii++) {
             int neighbour_idx = p.neighbours.at(ii);
             Particle& neighbour = points.at(neighbour_idx);
 
@@ -44,16 +44,15 @@ void Cloth::draw(sf::RenderWindow& window) {
                 float h = (1.f - x) * 135.f;
                 util::HSV_to_RGB(h, 0.7f, 1.0f, rgb);
                 
-                int r = rgb[0] * 255;
-                int g = rgb[1] * 255;
-                int b = rgb[2] * 255;
+                int r = (int)(rgb[0] * 255);
+                int g = (int)(rgb[1] * 255);
+                int b = (int)(rgb[2] * 255);
 
                 //std::cout << h << std::endl;
 
                 //float r = std::min(2.0f * x, 1.0f) * 200.f;
                 //float g = std::min(2.0f * (1-x), 1.0f) * 200.f;
                 //int b = 0;
-
 
                 sf::Vertex line[] = {
                     sf::Vertex(sf::Vector2f(p.x, p.y), sf::Color(r,g,b)),
@@ -69,7 +68,7 @@ void Cloth::remove_particle(int idx) {
     Particle& p = points.at(idx);
     std::cout << "Point removed at index " << idx << std::endl;
 
-    for (int i = 0; i < p.neighbours.size(); i++) {
+    for (size_t i = 0; i < p.neighbours.size(); i++) {
         Particle& n = points.at(p.neighbours.at(i));
         std::vector<int>::iterator it = std::find(n.neighbours.begin(), n.neighbours.end(), idx);
         if (it != n.neighbours.end()) {

@@ -43,9 +43,9 @@ int main()
     float wind_time_period = 0.5f;
 
     sf::Clock clock;
-    float simulator_deltaT = 0.0005;
-    float left_over_time = 0;
-    float total_elapsed_time = 0;
+    float simulator_deltaT = 0.0005f;
+    float left_over_time = 0.f;
+    float total_elapsed_time = 0.f;
     int loop_no = 0;
 
     EventHandler eventHandler;
@@ -57,7 +57,7 @@ int main()
         sf::Time elapsed_time = clock.getElapsedTime();
         clock.restart();
         float elapsed_time_sec = elapsed_time.asSeconds();
-        int n = (elapsed_time_sec +left_over_time) / simulator_deltaT;
+        int n = (int)((elapsed_time_sec + left_over_time) / simulator_deltaT);
         left_over_time = elapsed_time_sec - n * simulator_deltaT;
         float fps = 1.0f / elapsed_time_sec;
         
