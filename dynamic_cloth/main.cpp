@@ -11,8 +11,10 @@ const unsigned int SCR_HEIGHT = 800;
 
 int main()
 {
-    sf::RenderWindow app(sf::VideoMode(SCR_WIDTH, SCR_HEIGHT), "Cloth Simulation");
-    app.setFramerateLimit(30);
+    // TODO
+    // Wrap this whole thing into an App class. Then main can just call app.init() app.run().
+    sf::RenderWindow window(sf::VideoMode(SCR_WIDTH, SCR_HEIGHT), "Cloth Simulation");
+    window.setFramerateLimit(30);
 
     // Load the cloth.
     ClothLoader cl;
@@ -24,6 +26,8 @@ int main()
     ClothSimulator cs(cloth);
 
     // Setting fixed points.
+    // TODO Get rid of this horrible hard coding. Might be goood to
+    // read from file or something?
     std::vector<int> nodes;
     for (int i = 0; i < 50; i += 10) {
         nodes.push_back(i);
@@ -38,15 +42,16 @@ int main()
     std::vector<float> wind = { 0.f, 0.f, 0.f };
     float wind_time_period = 0.5f;
 
-
     sf::Clock clock;
     float simulator_deltaT = 0.0005;
     float left_over_time = 0;
     float total_elapsed_time = 0;
     int loop_no = 0;
 
+    EventHandler eventHandler;
+
     // Main loop.
-    while (app.isOpen())
+    while (window.isOpen())
     {
         // Time keeping
         sf::Time elapsed_time = clock.getElapsedTime();
@@ -66,12 +71,11 @@ int main()
         }
 
         // Events
-        EventHandler eventHandler;
-        eventHandler.check_events(app, cs);
+        eventHandler.check_events(window, cs);
         
-        app.clear();
-        cs.cloth.draw(app);
-        app.display();
+        window.clear();
+        cs.cloth.draw(window);
+        window.display();
         loop_no++;
     }
 
