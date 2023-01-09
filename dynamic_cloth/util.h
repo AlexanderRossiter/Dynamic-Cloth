@@ -15,8 +15,6 @@ namespace util {
     std::vector <std::string> str_split(const std::string &inputString, const std::string &delimiter);
     void HSV_to_RGB(float h, float s, float v, std::vector<float>& rgb);
 
-
-
     template<typename T>
     std::string vector_to_string(const std::vector<T>& vector) {
         std::ostringstream ss;
@@ -41,7 +39,7 @@ namespace util {
         }
         if (val_sq != 0) {
             val_sq = std::sqrt(val_sq);
-            for (int i = 0; i < vec.size(); i++) {
+            for (size_t i = 0; i < vec.size(); i++) {
                 vec[i] = vec[i] / val_sq;
             }
         }
@@ -56,11 +54,6 @@ namespace util {
         val_sq = std::sqrt(val_sq);
         return val_sq;
     }
-
-
-    
-
-
 }
 
 
