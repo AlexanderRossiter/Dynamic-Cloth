@@ -15,6 +15,8 @@ public:
 
     virtual ~Particle();
 
+    // TODO
+    // Do these really need to be public?
     float x;
     float y;
     float z;
@@ -35,7 +37,6 @@ public:
     bool is_fixed = false;
 
     int idx;
-
 
     std::vector<int> neighbours;
     std::vector<std::vector<float>> undeformed_distance_to_neighbours_vectors;

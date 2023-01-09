@@ -24,7 +24,7 @@ private:
 
 
 public:
-    explicit ClothSimulator(Cloth &cloth);
+    ClothSimulator(Cloth &cloth);
     virtual ~ClothSimulator();
 
     Cloth cloth;

@@ -68,6 +68,7 @@ void Cloth::draw(sf::RenderWindow& window) {
 void Cloth::remove_particle(int idx) {
     Particle& p = points.at(idx);
     std::cout << "Point removed at index " << idx << std::endl;
+
     for (int i = 0; i < p.neighbours.size(); i++) {
         Particle& n = points.at(p.neighbours.at(i));
         std::vector<int>::iterator it = std::find(n.neighbours.begin(), n.neighbours.end(), idx);
