@@ -9,6 +9,12 @@
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 800;
 
+/* TODO 
+ * Refactor directory.
+ * Need a util dir for util.* and EventHandler.*
+ * Need a resources dir for the cloth files.
+*/
+
 int main()
 {
     // TODO
