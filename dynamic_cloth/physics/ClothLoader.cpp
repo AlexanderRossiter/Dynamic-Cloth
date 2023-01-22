@@ -17,7 +17,7 @@ Cloth ClothLoader::load_cloth_from_file(std::string filepath) {
 
 void ClothLoader::load_cloth_coordinates(Cloth &c, std::string& filepath) {
     // Start by loading the points of the cloth.
-    std::ifstream file(filepath + "\\cloth_points");
+    std::ifstream file(filepath + "/cloth_points");
 
     if (file.fail()) {
         std::cout << "Failed to open points file." << std::endl;
@@ -57,7 +57,7 @@ void ClothLoader::load_cloth_coordinates(Cloth &c, std::string& filepath) {
 
 void ClothLoader::load_cloth_connectivity(Cloth &c, std::string &filepath) {
     // Start by loading the points of the cloth.
-    std::ifstream file(filepath + "\\cloth_connectivity");
+    std::ifstream file(filepath + "/cloth_connectivity");
 
     if (file.fail()) {
         std::cout << "Failed to open connectivity file." << std::endl;
