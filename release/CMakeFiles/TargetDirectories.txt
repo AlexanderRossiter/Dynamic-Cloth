@@ -1,3 +1,0 @@
-/home/alex/dev/Dynamic-Cloth/release/CMakeFiles/Dynamic-Cloth.dir
-/home/alex/dev/Dynamic-Cloth/release/CMakeFiles/edit_cache.dir
-/home/alex/dev/Dynamic-Cloth/release/CMakeFiles/rebuild_cache.dir
