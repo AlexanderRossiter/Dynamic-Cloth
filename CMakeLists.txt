@@ -1,11 +1,21 @@
-cmake_minimum_required(VERSION 3.17)
-project(Dynamic-Cloth)
+cmake_minimum_required(VERSION 3.20.0)
+project(Dynamic-Cloth CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# add_compile_options(-O3)
-#add_compile_options(-g)
+add_executable(Dynamic-Cloth 
+               src/main.cpp 
+               src/EventHandler.cpp
+               src/EventHandler.h
+)
 
-add_executable(Dynamic-Cloth dynamic_cloth/main.cpp dynamic_cloth/util.cpp dynamic_cloth/util.h dynamic_cloth/EventHandler.h dynamic_cloth/EventHandler.cpp dynamic_cloth/physics/Cloth.h dynamic_cloth/physics/Cloth.cpp dynamic_cloth/physics/ClothLoader.cpp dynamic_cloth/physics/ClothLoader.h dynamic_cloth/physics/ClothSimulator.h dynamic_cloth/physics/ClothSimulator.cpp dynamic_cloth/physics/Particle.h dynamic_cloth/physics/Particle.cpp)
+add_subdirectory(./src/physics)
+add_subdirectory(./src/util)
 
-target_link_libraries(Dynamic-Cloth -lsfml-graphics -lsfml-window -lsfml-system)
+target_link_libraries(Dynamic-Cloth PRIVATE 
+                    physics
+                    util
+                    -lsfml-graphics 
+                    -lsfml-window 
+                    -lsfml-system 
+)
