@@ -1,9 +1,0 @@
-/home/alexr/dev/Dynamic-Cloth/build/CMakeFiles/Dynamic-Cloth.dir
-/home/alexr/dev/Dynamic-Cloth/build/CMakeFiles/edit_cache.dir
-/home/alexr/dev/Dynamic-Cloth/build/CMakeFiles/rebuild_cache.dir
-/home/alexr/dev/Dynamic-Cloth/build/src/physics/CMakeFiles/physics.dir
-/home/alexr/dev/Dynamic-Cloth/build/src/physics/CMakeFiles/edit_cache.dir
-/home/alexr/dev/Dynamic-Cloth/build/src/physics/CMakeFiles/rebuild_cache.dir
-/home/alexr/dev/Dynamic-Cloth/build/src/util/CMakeFiles/util.dir
-/home/alexr/dev/Dynamic-Cloth/build/src/util/CMakeFiles/edit_cache.dir
-/home/alexr/dev/Dynamic-Cloth/build/src/util/CMakeFiles/rebuild_cache.dir
