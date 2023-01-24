@@ -14,7 +14,8 @@ sudo apt install libsfml-dev
 3. Build the project:
 ```
 cmake -B ./build -S . 
-cmake --build . --config Release
+cmake -DCMAKE_BUILD_TYPE=Release ./build
+cmake --build ./build
 ```
 4. Run:
 ```
