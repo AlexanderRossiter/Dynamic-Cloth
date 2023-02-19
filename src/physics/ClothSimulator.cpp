@@ -27,6 +27,11 @@ void ClothSimulator::apply_force_to_all(std::vector<float>& force) {
 }
 
 void ClothSimulator::apply_oscilator_damping(Particle& p) {
+    // TODO
+    // The damping shouldn't really be applied like this.
+    // It should be applied just to the spring extension.
+    // I think this will be harder to implement. This impl.
+    // has the effect of making the cloth appear to be in treacle.
     damping_force[0] = -p.xvel * cloth.damping;
     damping_force[1] = -p.yvel * cloth.damping;
     damping_force[2] = -p.zvel * cloth.damping;

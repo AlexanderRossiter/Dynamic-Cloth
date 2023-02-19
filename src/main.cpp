@@ -25,8 +25,8 @@ int main()
     // Load the cloth.
     ClothLoader cl;
     Cloth cloth = cl.load_cloth_from_file("./");
-    cloth.set_stiffness(1000.f);
-    cloth.set_damping(1.f);
+    cloth.set_stiffness(2000.f);
+    cloth.set_damping(3.f);
     
     // Create the pyhsics engine.
     ClothSimulator cs(cloth);
