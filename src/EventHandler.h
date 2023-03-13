@@ -1,14 +1,12 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "ClothSimulator.h"
+#include <SFML/Graphics.hpp>
 
 class EventHandler
 {
 public:
-	void check_events(sf::RenderWindow& app, ClothSimulator& cs);
+  void check_events(sf::RenderWindow& app, ClothSimulator& cs);
 
 private:
-	sf::Event event;
-
+  sf::Event event;
 };
-
