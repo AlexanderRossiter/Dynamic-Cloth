@@ -55,18 +55,18 @@ App::run()
 {
     // Wind vector
     std::vector<float> wind = { 0.f, 0.f, 0.f };
-    float wind_time_period = 0.5f;
+    float              wind_time_period = 0.5f;
 
     sf::Clock clock;
-    float simulator_deltaT = 0.0005f;
-    float left_over_time = 0.f;
-    float total_elapsed_time = 0.f;
+    float     simulator_deltaT = 0.0005f;
+    float     left_over_time = 0.f;
+    float     total_elapsed_time = 0.f;
     // Main loop
     while (m_window.isOpen()) {
         sf::Time elapsed_time = clock.getElapsedTime();
         clock.restart();
         float elapsed_time_sec = elapsed_time.asSeconds();
-        int n = (int)((elapsed_time_sec + left_over_time) / simulator_deltaT);
+        int   n = (int)((elapsed_time_sec + left_over_time) / simulator_deltaT);
         left_over_time = elapsed_time_sec - n * simulator_deltaT;
 
         // The Physics steps

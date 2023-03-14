@@ -16,11 +16,11 @@ class App
     uint32_t m_scr_height;
     uint32_t m_framrate_limit;
 
-    ClothLoader m_cloth_loader;
+    ClothLoader      m_cloth_loader;
     sf::RenderWindow m_window;
-    EventHandler m_event_handler;
+    EventHandler     m_event_handler;
 
-    Cloth m_cloth;
+    Cloth          m_cloth;
     ClothSimulator m_cloth_simulator;
 
   private:
