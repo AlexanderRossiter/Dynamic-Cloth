@@ -7,6 +7,8 @@ add_executable(Dynamic-Cloth
                src/main.cpp 
                src/EventHandler.cpp
                src/EventHandler.h
+               src/App.cpp
+               src/App.h
 )
 
 add_subdirectory(./src/physics)

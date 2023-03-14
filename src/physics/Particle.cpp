@@ -5,14 +5,14 @@
 
 #endif // !COORDINATE_H
 
-Particle::Particle(float x, float y, float z, float mass)
-  : x(x)
-  , y(y)
-  , z(z)
-  , mass(mass)
-  , x_old(x)
-  , y_old(y)
-  , z_old(z)
+Particle::Particle(float x, float y, float z, float mass) :
+    x(x),
+    y(y),
+    z(z),
+    mass(mass),
+    x_old(x),
+    y_old(y),
+    z_old(z)
 {
 }
 

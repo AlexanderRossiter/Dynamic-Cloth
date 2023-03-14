@@ -4,9 +4,10 @@
 
 class EventHandler
 {
-public:
-  void check_events(sf::RenderWindow& app, ClothSimulator& cs);
+  public:
+    EventHandler() = default;
+    void check_events(sf::RenderWindow& app, ClothSimulator& cs);
 
-private:
-  sf::Event event;
+  private:
+    sf::Event event;
 };
