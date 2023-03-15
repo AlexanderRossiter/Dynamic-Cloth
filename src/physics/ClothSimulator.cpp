@@ -53,12 +53,12 @@ ClothSimulator::apply_stiffness_force(Particle& p1)
 {
 
     for (size_t ii = 0; ii < p1.neighbours.size(); ii++) {
-        int neighbour_idx = p1.neighbours.at(ii);
-        Particle& p2 = cloth.points.at(neighbour_idx);
+        int       neighbour_idx = p1.neighbours.at(ii);
+        Particle& p2            = cloth.points.at(neighbour_idx);
 
-        float dx = p2.x - p1.x;
-        float dy = p2.y - p1.y;
-        float dz = p2.z - p1.z;
+        float dx       = p2.x - p1.x;
+        float dy       = p2.y - p1.y;
+        float dz       = p2.z - p1.z;
         float distance = std::sqrt(dx * dx + dy * dy + dz * dz);
 
         float undeformed_distance = p1.undeformed_distance_to_neighbours.at(ii);
@@ -68,7 +68,7 @@ ClothSimulator::apply_stiffness_force(Particle& p1)
         float zdir = dz / distance;
 
         float spring_force = (distance - undeformed_distance) * cloth.stiffness;
-        p1.forces.at(ii) = spring_force;
+        p1.forces.at(ii)   = spring_force;
 
         p1.xacc += xdir * spring_force / p1.mass;
         p1.yacc += ydir * spring_force / p1.mass;
@@ -163,7 +163,7 @@ void
 ClothSimulator::write_solution_to_file(int nstep)
 {
     std::ofstream file;
-    std::string fname = "./solution/nstep_" + std::to_string(nstep);
+    std::string   fname = "./solution/nstep_" + std::to_string(nstep);
 
     file.open(fname);
 
@@ -180,7 +180,7 @@ ClothSimulator::calculate_undeformed_distances()
 {
     for (Particle& point : cloth.points) {
         for (int neighbour_idx : point.neighbours) {
-            Particle& neighbour = cloth.points.at(neighbour_idx);
+            Particle&          neighbour = cloth.points.at(neighbour_idx);
             std::vector<float> distance_vector =
                 ClothSimulator::dist_to_point(point, neighbour);
 
@@ -192,7 +192,6 @@ ClothSimulator::calculate_undeformed_distances()
                 util::vector_magnitude(distance_vector));
             point.neighbour_drawn.insert({ neighbour_idx, false });
             point.forces.push_back(0.0f);
-            point.previous_colours.push_back(std::vector<int>{ 0, 255, 0 });
         }
     }
 }

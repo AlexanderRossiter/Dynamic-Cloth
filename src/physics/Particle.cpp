@@ -15,5 +15,3 @@ Particle::Particle(float x, float y, float z, float mass) :
     z_old(z)
 {
 }
-
-Particle::~Particle() {}
