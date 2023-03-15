@@ -13,8 +13,6 @@ class Particle
   public:
     Particle(float x, float y, float z, float mass);
 
-    virtual ~Particle();
-
     // TODO
     // Do these really need to be public?
     float x;
@@ -34,16 +32,15 @@ class Particle
     float zacc = 0;
 
     float mass;
-    bool is_fixed = false;
+    bool  is_fixed = false;
 
     int idx;
 
-    std::vector<int> neighbours;
+    std::vector<int>                neighbours;
     std::vector<std::vector<float>> undeformed_distance_to_neighbours_vectors;
-    std::vector<float> undeformed_distance_to_neighbours;
-    std::unordered_map<int, bool> neighbour_drawn;
-    std::vector<float> forces;
-    std::vector<std::vector<int>> previous_colours;
+    std::vector<float>              undeformed_distance_to_neighbours;
+    std::unordered_map<int, bool>   neighbour_drawn;
+    std::vector<float>              forces;
 };
 
 #endif // CLOTH_PARTICLE_H
